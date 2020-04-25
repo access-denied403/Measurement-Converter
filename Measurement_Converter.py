@@ -1,12 +1,8 @@
-"""
-Fix Temperature Bug! (Kelvin implementaton)
-"""
-
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import ttk
 
-class Weekend(object):
+class MeasurementConverter(object):
     def __init__(self, master):
         frame = ttk.Frame(master)
         frame.grid()
@@ -33,7 +29,6 @@ class Weekend(object):
         self.weightPage()
         self.lengthPage()
         self.temperaturePage()
-
 
 # Light Weight Tab
 
@@ -150,11 +145,6 @@ class Weekend(object):
         self.fahrenheitEntry = Entry(temperatureFrame)
         self.fahrenheitEntry.grid(column=1, row=2, pady=3, padx=15)
 
-        kelvinLabel = Label(temperatureFrame, text='Enter Kelvin: ')
-        kelvinLabel.grid(column=0, row=3, pady=3, sticky=W)
-        self.kelvinEntry = Entry(temperatureFrame)
-        self.kelvinEntry.grid(column=1, row=3, pady=3, padx=15)
-
         temperatureLabel = Label(temperatureFrame, text='Result: ')
         temperatureLabel.grid(column=0, row=4, pady=5, sticky=W)
         self.temperatureField = Label(temperatureFrame, text='')
@@ -270,20 +260,11 @@ class Weekend(object):
                 fahrenheit = 0
             else:
                 fahrenheit = float(fahrenheit)
-            kelvin = self.kelvinEntry.get()
-            if self.kelvinEntry.get() == '':
-                kelvin = 0
-            else:
-                kelvin = float(kelvin)
             celsiusRes = round((fahrenheit - 32) / 1.8, 2)
             fahrenheitRes = round(celsius * 9 / 5 + 32, 2)
-            kelvinRes = round(celsius + 273.14)
-            if int(kelvinRes) == 0:
-                kelvinRes = round((fahrenheit + 458.67) * (5/9), 2)
             sum = str(f'''
             {fahrenheitRes} ℉.
             {celsiusRes} °C.
-            {kelvinRes} K.
             ''')
             self.temperatureField.configure(text=sum)
         except ValueError:
@@ -295,5 +276,5 @@ if __name__ == '__main__':
     root.title('Measurement Converter')
     root.geometry('515x360')
     root.configure(bg='gray25')
-    main = Weekend(root)
+    main = MeasurementConverter(root)
     root.mainloop()
